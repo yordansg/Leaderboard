@@ -34,8 +34,6 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
     selectedCountry = '';
 
-    selectedColumnToSort = '';
-
     constructor(private dataService: DataService, private datePipe: DatePipe, ) {
     }
 
