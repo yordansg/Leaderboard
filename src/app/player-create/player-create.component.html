@@ -1,0 +1,32 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/']"><mat-icon>list</mat-icon></a>
+</div>
+<form [formGroup]="playerForm" (ngSubmit)="onFormSubmit(playerForm.value)">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Name: alphanumeric, up to 80 chars" formControlName="name">
+    <mat-error>
+      <span *ngIf="!playerForm.get('name').valid && playerForm.get('name').touched">Please enter Name</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Country: alphanumeric, up to 50 chars" formControlName="country">
+    <mat-error>
+      <span *ngIf="!playerForm.get('country').valid && playerForm.get('country').touched">Please enter Country</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Registration date: must be in YYYY-MM-DD format" formControlName="registration_date">
+    <mat-error>
+      <span *ngIf="!playerForm.get('registration_date').valid && playerForm.get('registration_date').touched">Please enter Registration date</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Score: between 0 and 100" formControlName="score"></textarea>
+    <mat-error>
+      <span *ngIf="!playerForm.get('score').valid && playerForm.get('score').touched">Please enter Score</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="button-row">
+    <button type="submit" [disabled]="!playerForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+  </div>
+</form>

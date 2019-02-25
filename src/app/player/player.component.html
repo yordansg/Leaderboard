@@ -1,0 +1,77 @@
+<div class="button-row">
+    <a mat-raised-button color="primary" [routerLink]="['/player-create']">
+        <mat-icon>add</mat-icon>
+    </a>
+</div>
+<div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+
+
+<mat-table class="players-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="name"
+    matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let player">{{player.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Country
+        </mat-header-cell>
+        <mat-cell class="description-cell" *matCellDef="let player">{{player.country}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="registration_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Registration date
+        </mat-header-cell>
+        <mat-cell class="duration-cell" *matCellDef="let player">{{player.registration_date}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Score</mat-header-cell>
+        <mat-cell class="score-cell" *matCellDef="let player">{{player.score}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="level">
+        <mat-header-cell *matHeaderCellDef>Level</mat-header-cell>
+        <mat-cell class="level-cell" *matCellDef="let player">{{player.level}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <ng-container matColumnDef="name2">
+        <mat-header-cell *matHeaderCellDef>
+            <input matInput placeholder="filter names" #input>
+        </mat-header-cell>
+    </ng-container>
+    <ng-container matColumnDef="country2">
+        <mat-header-cell *matHeaderCellDef>
+            <mat-select matInput name="mySelect" placeholder="filter by country">
+                <mat-option *ngFor="let player of distinctCountries" #dropdown (click)="selectedCountryFilter(player)">
+                    {{ player }}
+                </mat-option>
+            </mat-select>
+        </mat-header-cell>
+    </ng-container>
+    <ng-container matColumnDef="registration_date2">
+        <mat-header-cell *matHeaderCellDef>
+            <date-range #dateRangePicker (onSubmitEmitter)="OnNewDateRangeSubmitted($event)"></date-range>
+        </mat-header-cell>
+    </ng-container>
+    <ng-container matColumnDef="score2">
+        <mat-header-cell *matHeaderCellDef>
+        </mat-header-cell>
+    </ng-container>
+    <ng-container matColumnDef="level2">
+        <mat-header-cell *matHeaderCellDef>
+        </mat-header-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="header2Columns"></mat-header-row>
+</mat-table>
+
+
+<mat-paginator [length]="550" [pageSize]="10" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
